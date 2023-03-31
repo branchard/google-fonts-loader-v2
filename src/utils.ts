@@ -38,6 +38,7 @@ const axisDefaults: {[tag in Axis["tag"]]: Extract<Axis, {tag: tag}>["value"]} =
 	YTLC: 500,
 	YTUC: 725,
 };
+
 /* eslint-enable @typescript-eslint/naming-convention */
 
 export function getQueryStringForAxisTupleList(axisTupleList: AxisTuple[]): string {
@@ -107,26 +108,64 @@ export function generateFontUrl(font: Font, options?: Options): string {
 	return `https://fonts.googleapis.com/css2?${decodeURIComponent(searchParameters.toString())}`;
 }
 
-export function mergeAxisTupleLists(a1: AxisTuple[], a2: AxisTuple[]): AxisTuple[] {
-	const newAxisTupleList: AxisTuple[] = [...a1, ...a2];
-	return newAxisTupleList;
+/**
+ * Merge a2 in a1 and return the result
+ */
+export function mergeAxisTupleLists(a1: AxisTuple[], a2: AxisTuple[]): {changed: boolean; merged: AxisTuple[]} {
+	const newAxisTupleList: AxisTuple[] = [...a1];
 
-	// eslint-disable-next-line no-warning-comments
-	// TODO: not implemented yet
-	// for (const axisTuple2 of a2) {
-	// 	// Check if axisTuple2 already exist in newAxisTupleList
-	// 	newAxisTupleList.some(newAxisTuple => )
-	// }
+	let changed = false;
+	for (const axisTuple2 of a2) {
+		// Check if axisTupleFromLongest not already exist in newAxisTupleList
+		if (!newAxisTupleList.some(newAxisTuple => areAxisTuplesEquals(newAxisTuple, axisTuple2))) {
+			newAxisTupleList.push(axisTuple2);
+			changed = true;
+		}
+	}
+
+	return {
+		changed,
+		merged: newAxisTupleList,
+	};
 }
 
 function areAxisTuplesEquals(axisTuple1: AxisTuple, axisTuple2: AxisTuple): boolean {
-	// eslint-disable-next-line no-warning-comments
-	// TODO: not implemented yet
-	// for (const axis1 of axisTuple1) {
-	// 	// Check if axis1 is present in axisTuple2
-	// 	axisTuple2.some(axis2 => )
-	// }
-	return false;
+	let longestAxisTuple: AxisTuple = axisTuple1;
+	let shortestAxisTuple: AxisTuple = axisTuple2;
+
+	if (axisTuple2.length > axisTuple1.length) {
+		longestAxisTuple = axisTuple2;
+		shortestAxisTuple = axisTuple1;
+	}
+
+	for (const axis1 of longestAxisTuple) {
+		// Check if axis1 is not present in shortestAxisTuple
+		if (!shortestAxisTuple.some(axis2 => areAxisEquals(axis1, axis2) || areAxisEquals(axis1, {tag: axis1.tag, value: axisDefaults[axis1.tag]} as Axis))) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+function areAxisEquals(axis1: Axis, axis2: Axis): boolean {
+	if (axis1.tag !== axis2.tag) {
+		return false;
+	}
+
+	if (isRange(axis1.value)) {
+		if (!isRange(axis2.value)) {
+			return false;
+		}
+
+		return axis1.value.min === axis2.value.min && axis1.value.max === axis2.value.max;
+	}
+
+	if (isRange(axis2.value)) {
+		return false;
+	}
+
+	return axis1.value === axis2.value;
 }
 
 function numberOrRangeToNumber(v: NumberOrRange): number {

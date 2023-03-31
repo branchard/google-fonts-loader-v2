@@ -13,12 +13,16 @@ export function load(font: Font, options?: Options): void {
 			document.head.append(currentFamilyRegistryItem.element);
 		}
 
-		const mergedAxisTupleList = mergeAxisTupleLists(currentFamilyRegistryItem.axisTupleList, font.axisTupleList);
+		const {changed, merged} = mergeAxisTupleLists(currentFamilyRegistryItem.axisTupleList, font.axisTupleList);
+		if (!changed) {
+			return;
+		}
+
 		currentFamilyRegistryItem.element.href = generateFontUrl({
 			family: font.family,
-			axisTupleList: mergedAxisTupleList,
+			axisTupleList: merged,
 		}, options);
-		currentFamilyRegistryItem.axisTupleList = mergedAxisTupleList;
+		currentFamilyRegistryItem.axisTupleList = merged;
 	} else {
 		const linkElement = document.createElement("link");
 		linkElement.rel = "stylesheet";

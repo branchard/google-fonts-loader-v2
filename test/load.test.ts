@@ -1,10 +1,12 @@
+import "isomorphic-fetch";
 import {afterEach, describe, expect, test} from "@jest/globals";
-import {load} from "../src/load";
-import {unloadAll} from "../src/unload";
+import {load} from "../src";
+import {registry} from "../src/registry";
 
 describe("load()", () => {
 	afterEach(() => {
-		unloadAll();
+		document.head.innerHTML = "";
+		registry.clear();
 	});
 
 	test("should load Open Sans with multiple tuples", () => {
@@ -88,5 +90,28 @@ describe("load()", () => {
 
 		expect(document.head.querySelector<HTMLLinkElement>(".google-fonts-loader-v2")?.href)
 			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75,200;0,75,500;0,80,800;1,75,200;1,75,500&display=swap");
+	});
+
+	test("should respond HTTP 200 when requesting the Google Fonts API", async () => {
+		load({
+			family: "Open Sans",
+			axisTupleList: [
+				[
+					{tag: "ital", value: 0},
+					{tag: "wght", value: 800},
+					{tag: "wdth", value: 80},
+				],
+				[
+					{tag: "ital", value: 0},
+					{tag: "wght", value: 500},
+					{tag: "wdth", value: 75},
+				],
+			],
+		}, {
+			display: "swap",
+		});
+
+		const response = await fetch(document.head.querySelector<HTMLLinkElement>(".google-fonts-loader-v2")!.href);
+		expect(response.status).toBe(200);
 	});
 });
