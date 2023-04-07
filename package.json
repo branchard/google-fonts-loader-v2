@@ -1,6 +1,6 @@
 {
   "name": "google-fonts-loader-v2",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple and efficient way to load Google Fonts in the browser with the v2 API",
   "keywords": [
     "google fonts",
