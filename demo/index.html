@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Demo</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/index.ts"></script>
-  </body>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./src/style.css">
+    <title>Google Fonts Loader V2 Demo</title>
+</head>
+<body class="flex min-h-screen">
+<div class="flex flex-col gap-6 m-auto py-6 w-96">
+    <div class="p-6 max-w-sm bg-neutral-700 text-white text-opacity-90 rounded-xl shadow-lg flex items-center gap-4">
+        <a href="https://fonts.google.com/" class="grayscale hover:grayscale-0 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="w-10">
+                <path fill="none" d="M0 0h16v16H0z"/>
+                <path fill="#F29900" d="M13.5 2H8L1 13h5.5z"/>
+                <path fill="#1A73E8" d="M8 2h5v11H8z"/>
+                <circle fill="#EA4335" cx="3.25" cy="4.25" r="2.25"/>
+                <path fill="#0D652D" d="M13.33 10L13 13c-1.66 0-3-1.34-3-3s1.34-3 3-3l.33 3z"/>
+                <path fill="#174EA6" d="M10.5 4.5A2.5 2.5 0 0113 2l.45 2.5L13 7a2.5 2.5 0 01-2.5-2.5z"/>
+                <path fill="#1A73E8" d="M13 2a2.5 2.5 0 010 5"/>
+                <path fill="#34A853" d="M13 7c1.66 0 3 1.34 3 3s-1.34 3-3 3"/>
+            </svg>
+        </a>
+        <div class="flex-grow relative">
+            <select class="block appearance-none w-full bg-neutral-800 border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+                <option value="Open Sans" selected>Open Sans</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Roboto Flex">Roboto Flex</option>
+                <option value="Dosis">Dosis</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div id="preview-container" class="relative p-6 max-w-sm bg-neutral-700 text-white text-opacity-90 rounded-xl shadow-lg">
+        <div id="preview-loader" class="h-2 bg-neutral-600 rounded animate-pulse mx-5"></div>
+        <div id="preview" class="w-full text-center text-xl hidden">
+            Life is too <strong>short</strong> to be taken seriously
+        </div>
+    </div>
+</div>
+<div id="timer" class="absolute right-2 bottom-1 text-xs opacity-75 text-shadow-sm shadow-black"></div>
+<script type="module" src="/src/index.ts"></script>
+</body>
 </html>
