@@ -89,7 +89,7 @@ export function getQueryStringForAxisTupleList(axisTupleList: AxisTuple[]): stri
 }
 
 export function generateFontUrl(font: Font, options?: Options): string {
-	const axisQueryString = getQueryStringForAxisTupleList(font.axisTupleList);
+	const axisQueryString = font.axisTupleList ? getQueryStringForAxisTupleList(font.axisTupleList) : "";
 
 	const searchParametersEntries: {family: string; text?: string; display?: string} = {
 		family: font.family + (axisQueryString.length > 0 ? `:${axisQueryString}` : ""),
@@ -110,8 +110,9 @@ export function generateFontUrl(font: Font, options?: Options): string {
 
 /**
  * Merge a2 in a1 and return the result
+ * Return false if nothing changed
  */
-export function mergeAxisTupleLists(a1: AxisTuple[], a2: AxisTuple[]): {changed: boolean; merged: AxisTuple[]} {
+export function mergeAxisTupleLists(a1: AxisTuple[], a2: AxisTuple[]): AxisTuple[] | false {
 	const newAxisTupleList: AxisTuple[] = [...a1];
 
 	let changed = false;
@@ -123,10 +124,23 @@ export function mergeAxisTupleLists(a1: AxisTuple[], a2: AxisTuple[]): {changed:
 		}
 	}
 
-	return {
-		changed,
-		merged: newAxisTupleList,
-	};
+	if (!changed) {
+		return false;
+	}
+
+	return newAxisTupleList;
+}
+
+export function deduplicateAxisTuples(axisTupleList: AxisTuple[]): AxisTuple[] {
+	return axisTupleList.filter((axisTuple1, index1) => {
+		for (let index2 = 0; index2 < index1; index2++) {
+			if (areAxisTuplesEquals(axisTuple1, axisTupleList[index2])) {
+				return false;
+			}
+		}
+
+		return true;
+	});
 }
 
 function areAxisTuplesEquals(axisTuple1: AxisTuple, axisTuple2: AxisTuple): boolean {
@@ -168,6 +182,6 @@ function areAxisEquals(axis1: Axis, axis2: Axis): boolean {
 	return axis1.value === axis2.value;
 }
 
-function numberOrRangeToNumber(v: NumberOrRange): number {
+export function numberOrRangeToNumber(v: NumberOrRange): number {
 	return isRange(v) ? v.min : v;
 }

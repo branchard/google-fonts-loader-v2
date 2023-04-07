@@ -119,7 +119,7 @@ export type AxisTuple = Axis[];
 
 export type Font = {
 	family: Family;
-	axisTupleList: AxisTuple[];
+	axisTupleList?: AxisTuple[];
 };
 
 export type Options = {

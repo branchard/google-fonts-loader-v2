@@ -1,8 +1,18 @@
 import type {Font, Options} from "./types";
 import {registry} from "./registry";
 import {generateFontUrl, mergeAxisTupleLists} from "./utils";
+import {awaitFontLoading} from "./listener";
 
 export function load(font: Font, options?: Options): void {
+	initLoad(font, options);
+}
+
+export async function loadAwait(font: Font, options?: Options): Promise<void> {
+	const linkElement = initLoad(font, options);
+	await awaitFontLoading(font, linkElement);
+}
+
+function initLoad(font: Font, options?: Options): HTMLLinkElement {
 	// Check if the font is already loaded
 	if (registry.has(font.family)) {
 		const currentFamilyRegistryItem = registry.get(font.family)!;
@@ -13,29 +23,30 @@ export function load(font: Font, options?: Options): void {
 			document.head.append(currentFamilyRegistryItem.element);
 		}
 
-		const {changed, merged} = mergeAxisTupleLists(currentFamilyRegistryItem.axisTupleList, font.axisTupleList);
-		if (!changed) {
-			return;
+		const mergeResult = mergeAxisTupleLists(currentFamilyRegistryItem.axisTupleList, font.axisTupleList ?? []);
+
+		// Do nothing if nothing changed
+		if (!mergeResult) {
+			return currentFamilyRegistryItem.element;
 		}
 
 		currentFamilyRegistryItem.element.href = generateFontUrl({
 			family: font.family,
-			axisTupleList: merged,
+			axisTupleList: mergeResult,
 		}, options);
-		currentFamilyRegistryItem.axisTupleList = merged;
-	} else {
-		const linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		linkElement.href = generateFontUrl(font, options);
-		linkElement.className = "google-fonts-loader-v2";
-		document.head.append(linkElement);
-		registry.set(font.family, {
-			element: linkElement,
-			axisTupleList: font.axisTupleList,
-		});
+		currentFamilyRegistryItem.axisTupleList = mergeResult;
+		return currentFamilyRegistryItem.element;
 	}
+
+	const linkElement = document.createElement("link");
+	linkElement.rel = "stylesheet";
+	linkElement.href = generateFontUrl(font, options);
+	linkElement.className = "google-fonts-loader-v2";
+	document.head.append(linkElement);
+	registry.set(font.family, {
+		element: linkElement,
+		axisTupleList: font.axisTupleList ?? [],
+	});
+	return linkElement;
 }
 
-export async function loadAndAwait(font: Font, options?: Options): Promise<void> {
-	console.error("Not implemented yet");
-}
