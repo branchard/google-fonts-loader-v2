@@ -1,0 +1,6 @@
+{
+  "extends": [
+    "../.eslintrc.json"
+  ],
+  "ignorePatterns": ["postcss.config.js", "tailwind.config.js"]
+}
