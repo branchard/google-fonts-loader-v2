@@ -1,5 +1,5 @@
 import {describe, expect, test} from "@jest/globals";
-import {generateFontUrl, getQueryStringForAxisTupleList} from "../src/utils";
+import {deduplicateAxisTuples, generateFontUrl, getQueryStringForAxisTupleList, mergeAxisTupleLists} from "../src/utils";
 
 describe("getQueryStringForAxisTupleList()", () => {
 	test("should return an empty string when an empty array is given", () => {
@@ -334,6 +334,128 @@ describe("generateFontUrl()", () => {
 				],
 			],
 		})).toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@1,70..100,500;1,75..80,400");
+	});
+});
+
+describe("mergeAxisTupleLists()", () => {
+	test("should work with a simple merge", () => {
+		expect(mergeAxisTupleLists([
+			[
+				{tag: "wght", value: 500},
+			],
+		], [
+			[
+				{tag: "wght", value: 600},
+			],
+		])).toStrictEqual([
+			[
+				{tag: "wght", value: 500},
+			],
+			[
+				{tag: "wght", value: 600},
+			],
+		]);
+	});
+
+	test("should return false if nothing changed", () => {
+		expect(mergeAxisTupleLists([
+			[
+				{tag: "wdth", value: 750},
+			],
+		], [])).toBe(false);
+	});
+
+	test("should deduplicate axis", () => {
+		expect(mergeAxisTupleLists([
+			[
+				{tag: "wdth", value: 750},
+			],
+		], [
+			[
+				{tag: "wdth", value: 750},
+			],
+			[
+				{tag: "ital", value: 1},
+			],
+		])).toStrictEqual([
+			[
+				{tag: "wdth", value: 750},
+			],
+			[
+				{tag: "ital", value: 1},
+			],
+		]);
+	});
+});
+
+describe("deduplicateAxisTuples()", () => {
+	test("should do nothing if there are no duplicate axis tuples", () => {
+		expect(deduplicateAxisTuples([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+		])).toStrictEqual([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+		]);
+
+		expect(deduplicateAxisTuples([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 1},
+			],
+		])).toStrictEqual([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 1},
+			],
+		]);
+	});
+
+	test("should deduplicate explicit duplicates", () => {
+		expect(deduplicateAxisTuples([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+		])).toStrictEqual([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+		]);
+	});
+
+	test("should deduplicate implicit duplicates", () => {
+		expect(deduplicateAxisTuples([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+			[
+				{tag: "wght", value: 500},
+			],
+		])).toStrictEqual([
+			[
+				{tag: "wght", value: 500},
+				{tag: "ital", value: 0},
+			],
+		]);
 	});
 });
 
