@@ -1,7 +1,19 @@
 {
   "name": "google-fonts-loader-v2",
-  "version": "0.1.0",
-  "description": "no description yet",
+  "version": "0.1.1",
+  "description": "Simple and efficient way to load Google Fonts in the browser with the v2 API",
+  "keywords": [
+    "google fonts",
+    "google fonts loader",
+    "google fonts v2",
+    "web fonts",
+    "loader",
+    "browser",
+    "woff",
+    "ttf"
+  ],
+  "author": "branchard",
+  "license": "MIT",
   "repository": "git@github.com:branchard/google-fonts-loader-v2.git",
   "type": "module",
   "main": "dist/index.cjs",
@@ -16,8 +28,6 @@
   "files": [
     "dist"
   ],
-  "author": "branchard",
-  "license": "MIT",
   "scripts": {
     "build": "tsup",
     "build:watch": "tsup --watch",
