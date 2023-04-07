@@ -14,7 +14,7 @@
   ],
   "author": "branchard",
   "license": "MIT",
-  "repository": "git@github.com:branchard/google-fonts-loader-v2.git",
+  "repository": "github:branchard/google-fonts-loader-v2",
   "type": "module",
   "main": "dist/index.cjs",
   "exports": {
