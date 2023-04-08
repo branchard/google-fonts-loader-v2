@@ -5,9 +5,9 @@
 [![npm downloads](https://badgen.net//bundlephobia/dependency-count/google-fonts-loader-v2)](https://bundlephobia.com/package/google-fonts-loader-v2)
 [![npm downloads](https://badgen.net/bundlephobia/minzip/google-fonts-loader-v2)](https://bundlephobia.com/package/google-fonts-loader-v2)
 
-Simple and efficient way to load [Google Fonts](https://fonts.google.com) with [v2 API](https://developers.google.com/fonts/docs/css2) in the **browser**.
+A [Google Fonts](https://fonts.google.com) library specifically designed for the [v2 API](https://developers.google.com/fonts/docs/css2) and [variable fonts](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts), which helps to load them in the **browser**.
 
-## Features
+## 🎯 Features
 - Google Fonts v2 API
 - Variable fonts
 - Promise that await for a font to be fully loaded
