@@ -18,31 +18,6 @@ const fontsMetadataUrl = "https://fonts.google.com/metadata/fonts";
 	const defaults = soredAxisRegistry.map(axis => `${axis.tag}: ${axis.defaultValue}`).join(",\n");
 
 	console.log(`Axis:\n${axisUnion}\n\n${defaults}`);
-
-	// Not used
-	//
-	// const fontsUnion = metadata.familyMetadataList.sort((a, b) => a.family.localeCompare(b.family, "en")).map(fontFamily => {
-	// 	const axes: Axis[] = [...fontFamily.axes];
-	//
-	// 	if (Object.keys(fontFamily.fonts).some(name => /^\d{3}i$/.test(name))) {
-	// 		axes.push({
-	// 			tag: "ital",
-	// 		});
-	// 	}
-	//
-	// 	if (!axes.some(axis => axis.tag === "wght")) {
-	// 		axes.push({
-	// 			tag: "wght",
-	// 		});
-	// 	}
-	//
-	// 	return [
-	// 		"{",
-	// 		`\tfamily: ${fontFamily.family};`,
-	// 		`\taxisTupleList: ${fontFamily.axes.map(axis => `"${axis.tag}"`).join(" | ")};`,
-	// 		"}",
-	// 	].join("\n");
-	// }).join(" | ");
 })();
 
 type Metadata = {
