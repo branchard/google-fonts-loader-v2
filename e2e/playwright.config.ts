@@ -77,6 +77,7 @@ export default defineConfig({
 	webServer: {
 		command: `yarn run vite ./e2e --port=${port} --strictPort`,
 		url: `http://127.0.0.1:${port}`,
+		timeout: 5000,
 		reuseExistingServer: !process.env.CI,
 	},
 });
