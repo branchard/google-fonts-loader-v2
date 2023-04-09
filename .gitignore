@@ -1,7 +1,6 @@
 # Node
 dist/
 node_modules/
-coverage/
 tsconfig.tsbuildinfo
 
 # Logs
@@ -12,6 +11,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+report-*.xml
 
 # Editor directories and files
 .vscode/
