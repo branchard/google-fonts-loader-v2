@@ -15,11 +15,11 @@ describe("load()", () => {
 			axisTupleList: [
 				[
 					{tag: "ital", value: 0},
-					{tag: "wght", value: 200},
+					{tag: "wght", value: 300},
 				],
 				[
 					{tag: "ital", value: 1},
-					{tag: "wght", value: 200},
+					{tag: "wght", value: 300},
 				],
 				[
 					{tag: "ital", value: 0},
@@ -35,7 +35,7 @@ describe("load()", () => {
 		});
 
 		expect(document.head.querySelector<HTMLLinkElement>(".google-fonts-loader-v2")?.href)
-			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,200;0,500;1,200;1,500&display=swap");
+			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,500;1,300;1,500&display=swap");
 	});
 
 	test("should append tuples to already created URL and deduplicate them", () => {
@@ -44,12 +44,12 @@ describe("load()", () => {
 			axisTupleList: [
 				[
 					{tag: "ital", value: 0},
-					{tag: "wght", value: 200},
+					{tag: "wght", value: 300},
 					{tag: "wdth", value: 75},
 				],
 				[
 					{tag: "ital", value: 1},
-					{tag: "wght", value: 200},
+					{tag: "wght", value: 300},
 					{tag: "wdth", value: 75},
 				],
 				[
@@ -68,7 +68,7 @@ describe("load()", () => {
 		});
 
 		expect(document.head.querySelector<HTMLLinkElement>(".google-fonts-loader-v2")?.href)
-			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75,200;0,75,500;1,75,200;1,75,500&display=swap");
+			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75,300;0,75,500;1,75,300;1,75,500&display=swap");
 
 		load({
 			family: "Open Sans",
@@ -89,7 +89,7 @@ describe("load()", () => {
 		});
 
 		expect(document.head.querySelector<HTMLLinkElement>(".google-fonts-loader-v2")?.href)
-			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75,200;0,75,500;0,80,800;1,75,200;1,75,500&display=swap");
+			.toBe("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75,300;0,75,500;0,80,800;1,75,300;1,75,500&display=swap");
 	});
 
 	test("should respond HTTP 200 when requesting the Google Fonts API", async () => {
