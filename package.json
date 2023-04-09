@@ -1,6 +1,6 @@
 {
   "name": "google-fonts-loader-v2",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A Google Fonts library specifically designed for the v2 API and variable fonts, which helps to load them in the browser.",
   "keywords": [
     "google fonts",
