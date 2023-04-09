@@ -31,7 +31,7 @@ jobs:
         run: yarn test:unit
 
       - name: Install Playwright Browsers
-        run: yarn playwright install --with-deps
+        run: yarn playwright install --with-deps && apt install fonts-dejavu
 
       - name: Run e2e
         run: yarn test:e2e
