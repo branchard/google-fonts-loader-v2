@@ -1,21 +1,25 @@
-# Google Fonts Loader v2
+# Google Fonts Loader v2 💱
 
 [![npm version](https://badgen.net/npm/v/google-fonts-loader-v2)](https://npm.im/google-fonts-loader-v2)
+[![Tests](https://github.com/branchard/google-fonts-loader-v2/actions/workflows/tests.yml/badge.svg)](https://github.com/branchard/google-fonts-loader-v2/actions/workflows/tests.yml)
 [![npm downloads](https://badgen.net/npm/types/google-fonts-loader-v2)](https://npm.im/google-fonts-loader-v2)
 [![npm downloads](https://badgen.net//bundlephobia/dependency-count/google-fonts-loader-v2)](https://bundlephobia.com/package/google-fonts-loader-v2)
 [![npm downloads](https://badgen.net/bundlephobia/minzip/google-fonts-loader-v2)](https://bundlephobia.com/package/google-fonts-loader-v2)
 
-A [Google Fonts](https://fonts.google.com) library specifically designed for the [v2 API](https://developers.google.com/fonts/docs/css2) and [variable fonts](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts), which helps to load them in the **browser**.
+Lightweight [Google Fonts](https://fonts.google.com) library specifically designed for the [v2 API](https://developers.google.com/fonts/docs/css2)
+and [variable fonts](https://fonts.google.com/knowledge/introducing_type/introducing_variable_fonts), which helps to dynamically load them in the **browser**.
 
 ## 🎯 Features
-- Google Fonts v2 API
-- Variable fonts
-- Promise that await for a font to be fully loaded
-- List loaded fonts
-- Unloading fonts
-- Type safe/Typescript support
 
-## ⚙️ Install
+- 🚀 Google Fonts **v2** API
+- 📥 Load **variable** fonts
+- ⏳ Await for a font to **fully** load
+- 📜 List loaded fonts
+- 📤 Unload fonts
+- 🔒 Fully **typed** APIs
+
+## ⚙️ Installation
+
 ```shell
 npm install google-fonts-loader-v2
 # or
@@ -27,6 +31,7 @@ bun add google-fonts-loader-v2
 ```
 
 ## 📖 Usage
+
 ```javascript
 import {loadAwait, list, unload} from "google-fonts-loader-v2";
 
@@ -58,6 +63,7 @@ console.log("Open Sans unloaded!");
 ```
 
 ## 📚 Documentation
+
 ### load()
 ```typescript
 load(font: Font, options?: Options): void
@@ -90,4 +96,10 @@ Unload all the previously loaded fonts.
 
 ## 🐜 Known bugs
 
-- https://fonts.googleapis.com/css2?family=Nabla:EHLT@5;12&display=swap seems to return 400 code while this query should be valid
+- https://fonts.googleapis.com/css2?family=Nabla:EHLT@5;13&display=swap seems to return 400 error while this query should be valid
+
+## 📄 License
+
+The MIT License.
+
+See [LICENSE](LICENSE)
