@@ -38,7 +38,7 @@
     "test:lint": "if test \"$CI\" = true; then eslint --format junit --output-file report-lint.xml ./src ./tests; else eslint ./src ./tests; fi",
     "test:types": "if test \"$CI\" = true; then tsc --noEmit | tsc-junit --output report-types.xml; else tsc --noEmit; fi",
     "test:unit": "if test \"$CI\" = true; then JEST_JUNIT_OUTPUT_NAME=report-unit.xml jest --reporters=default --reporters=jest-junit; else jest --reporters=default; fi",
-    "test:e2e": "playwright test --config ./e2e",
+    "test:e2e": "vite ./e2e --port=48745 --strictPort",
     "test:unit:watch": "jest --watch",
     "clean": "rm -rf dist test-results logs report-*.xml",
     "coverage": "jest --collect-coverage",
