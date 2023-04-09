@@ -20,6 +20,9 @@
   },
   "include": [
     "src",
-    "test"
+    "tests",
+    "script",
+    "e2e",
+    "playwright.config.ts"
   ]
 }
