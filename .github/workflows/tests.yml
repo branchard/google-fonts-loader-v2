@@ -43,9 +43,12 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
 
+      - name: Install Playwright deps
+        run: yarn playwright install-deps
+
       - name: Install Playwright browsers
         if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-        run: yarn playwright install --with-deps
+        run: yarn playwright install
 
       - name: Run E2E tests
         run: yarn test:e2e
