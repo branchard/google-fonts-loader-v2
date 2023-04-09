@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently -k -n tsup,vite \"cd ../ && yarn build:watch\" \"vite --host\"",
-    "build": "cd ../ && yarn build && cd - && tsc && vite build",
+    "build": "cd ../ && yarn build && cd - && tsc && vite build --base /google-fonts-loader-v2/",
     "preview": "cd ../ && yarn build && cd - && vite preview"
   },
   "dependencies": {
