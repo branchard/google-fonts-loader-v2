@@ -75,7 +75,7 @@ export default defineConfig({
 
 	/* Run your local dev server before starting the tests */
 	webServer: {
-		command: `yarn run vite ./e2e --port=${port} --strictPort`,
+		command: `yarn run vite ./e2e --port=${port} --strictPort --host`,
 		url: `http://127.0.0.1:${port}`,
 		timeout: 5000,
 		reuseExistingServer: !process.env.CI,
