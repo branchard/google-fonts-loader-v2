@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "concurrently -k -n tsup,vite \"cd ../ && yarn build:watch\" \"vite --host\"",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "build": "cd ../ && yarn build && cd - && tsc && vite build",
+    "preview": "cd ../ && yarn build && cd - && vite preview"
   },
   "dependencies": {
     "google-fonts-loader-v2": "link:../"
