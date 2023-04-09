@@ -1,0 +1,41 @@
+name: Tests
+on:
+  pull_request:
+  push:
+    branches: [ master, dev ]
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: latest
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Install Playwright Browsers
+        run: yarn playwright install --with-deps
+
+      - name: Run lint
+        run: yarn test:lint
+
+      - name: Run types
+        run: yarn test:types
+
+      - name: Run unit
+        run: yarn test:unit
+
+      - name: Run e2e
+        run: yarn test:e2e
+
+      - name: Publish tests resport
+        uses: mikepenz/action-junit-report@v3
+        if: success() || failure() # always run even if the previous step fails
+        with:
+          report_paths: 'report-*.xml'
