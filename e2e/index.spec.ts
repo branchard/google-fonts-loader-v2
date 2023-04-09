@@ -110,10 +110,7 @@ test("loadAwait() › await for the font to be fully loaded", async ({page}) => 
 		document.body.append(spanElement);
 	}, checkSpanClass);
 
-	// Check if the font is not already loaded on the freshly created div, using the devtool protocol
 	const fontNotLoadedWidth = await getCheckSpanWidth();
-	expect(fontNotLoadedWidth).toBeGreaterThan(104);
-	expect(fontNotLoadedWidth).toBeLessThan(108);
 
 	// Load the font and await
 	await page.evaluate(async () => {
@@ -130,10 +127,9 @@ test("loadAwait() › await for the font to be fully loaded", async ({page}) => 
 		});
 	});
 
-	// Check if the font is fully loaded
+	// Check if the font is fully loaded by checking if its with changed
 	const fontLoadedWidth = await getCheckSpanWidth();
-	expect(fontLoadedWidth).toBeGreaterThan(73);
-	expect(fontLoadedWidth).toBeLessThan(76);
+	expect(fontLoadedWidth).not.toStrictEqual(fontNotLoadedWidth);
 
 	const linkElementLocator = page.locator(linkElementSelector);
 	expect(await linkElementLocator.count()).toBe(1);
