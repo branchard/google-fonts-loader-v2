@@ -23,10 +23,13 @@ async function awaitAxisTupleLoading(family: Family, tuple: AxisTuple): Promise<
 	const isItalic: boolean = tuple.find(axis => axis.tag === "ital")?.value === 1;
 	const weightAxis = tuple.find(axis => axis.tag === "wght");
 	const weight = weightAxis === undefined ? "normal" : numberOrRangeToNumber(weightAxis.value);
-	const widthAxis = tuple.find(axis => axis.tag === "wdth");
-	const stretch = widthAxis === undefined ? "normal" : `${numberOrRangeToNumber(widthAxis.value)}%`;
 
-	const fontCssSpec = `${isItalic ? "italic" : "normal"} ${weight} ${stretch} 16px "${family}"`;
+	// The stretch value seems to not be supported as percent value
+	// const widthAxis = tuple.find(axis => axis.tag === "wdth");
+	// const stretch = widthAxis === undefined ? "normal" : `${numberOrRangeToNumber(widthAxis.value)}%`;
+	// const fontCssSpec = `${isItalic ? "italic" : "normal"} ${weight} ${stretch} 16px "${family}"`;
+
+	const fontCssSpec = `${isItalic ? "italic" : "normal"} ${weight} 16px "${family}"`;
 
 	const fontFaces = await document.fonts.load(fontCssSpec);
 	if (fontFaces.length > 0) {
