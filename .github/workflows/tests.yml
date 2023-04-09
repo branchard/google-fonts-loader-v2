@@ -32,7 +32,7 @@ jobs:
 
       - name: Store Playwright's version
         run: |
-          PLAYWRIGHT_VERSION=$(npm ls @playwright/test | grep @playwright | sed 's/.*@//')
+          PLAYWRIGHT_VERSION=$(yarn list --pattern @playwright/test | grep @playwright | sed 's/.*@//')
           echo "Playwright's Version: $PLAYWRIGHT_VERSION"
           echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
 
