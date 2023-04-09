@@ -36,7 +36,7 @@ async function awaitAxisTupleLoading(family: Family, tuple: AxisTuple): Promise<
 		return;
 	}
 
-	return new Promise((resolve, reject) => {
+	return new Promise(resolve => {
 		const listenerCallback = () => {
 			if (document.fonts.check(fontCssSpec)) {
 				document.fonts.removeEventListener("loadingdone", listenerCallback);
