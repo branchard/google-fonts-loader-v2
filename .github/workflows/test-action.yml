@@ -1,0 +1,22 @@
+name: Tests action
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check if version has been updated
+        id: check
+        uses: branchard/semver-check@v0
+
+      - name: Print check result
+        run: echo ${{ steps.check.outputs.changed }}
+
