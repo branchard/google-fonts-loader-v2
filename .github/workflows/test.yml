@@ -1,8 +1,14 @@
 name: Tests
 on:
   pull_request:
+    branches:
+      - master
+      - dev
   push:
-    branches: [ master, dev ]
+    branches:
+      - master
+      - dev
+  workflow_dispatch:
 
 jobs:
   test:
@@ -11,9 +17,11 @@ jobs:
     permissions:
       checks: write
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Install node
+        uses: actions/setup-node@v3
         with:
           cache: yarn
           node-version: latest
@@ -21,10 +29,13 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run lint
+      - name: Smoke test build
+        run: yarn build
+
+      - name: Check lint
         run: yarn test:lint
 
-      - name: Run types tests
+      - name: Check types
         run: yarn test:types
 
       - name: Run unit tests
