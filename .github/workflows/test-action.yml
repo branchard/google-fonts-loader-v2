@@ -16,6 +16,8 @@ jobs:
       - name: Check if version has been updated
         id: check
         uses: branchard/semver-check@0.0.4
+        with:
+          destination: git
 
       - name: Print check result
         run: echo ${{ steps.check.outputs.available }}
